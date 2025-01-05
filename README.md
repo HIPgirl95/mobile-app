@@ -1,0 +1,1 @@
+This is my first React-native app! I'm excited to learn how to make mobile apps! So far, it's just a start page where you can select a background color and enter your name. Then, press the button to "Go to chat!" and you'll see your inputed name and chosen background color! Very exciting
