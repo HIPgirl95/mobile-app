@@ -4,10 +4,14 @@ import { Bubble, GiftedChat, SystemMessage } from "react-native-gifted-chat";
 
 const Chat = ({ route, navigation }) => {
   const [messages, setMessages] = useState([]);
+  // extract route parameters for setting title and background color
   const { name, backgroundColor } = route.params;
 
   useEffect(() => {
+    //Set the title to the provided "name" parameter
     navigation.setOptions({ title: name });
+
+    //initialize chat messages with default messages
     setMessages([
       {
         _id: 1,
@@ -21,19 +25,21 @@ const Chat = ({ route, navigation }) => {
       },
       {
         _id: 2,
-        text: "This is a system message",
+        text: "This is a system message", //system notification
         createdAt: new Date(),
         system: true,
       },
     ]);
-  }, []);
+  }, []); //Empty dependency array ensures this only runs once
 
+  //function to handle sending new messages
   const onSend = (newMessages) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, newMessages)
     );
   };
 
+  //custom bubble styling
   const renderBubble = (props) => {
     return (
       <Bubble
@@ -50,6 +56,7 @@ const Chat = ({ route, navigation }) => {
     );
   };
 
+  //custom system message styling
   const renderSystemMessage = (props) => {
     return (
       <SystemMessage
@@ -62,6 +69,7 @@ const Chat = ({ route, navigation }) => {
   };
 
   return (
+    //main containser with a changing background color
     <View style={[styles.container, { backgroundColor }]}>
       <GiftedChat
         messages={messages}
@@ -70,6 +78,7 @@ const Chat = ({ route, navigation }) => {
         onSend={(messages) => onSend(messages)}
         user={{ _id: 1 }}
       />
+      {/* make sure the keyboard doesn't cover up the messages */}
       {/* {Platform.OS === "ios" ? (
         <KeyboardAvoidingView behavior="padding" />
       ) : null} */}

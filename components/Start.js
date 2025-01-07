@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 
+//Start screen component, where users can input their name and choose a background color
 const Start = ({ navigation }) => {
   const [name, setName] = useState();
   const colors = ["#090C08", "#474056", "#8A95A5", "#B9C6AE"];
@@ -22,6 +23,7 @@ const Start = ({ navigation }) => {
         source={require("../assets/BackgroundImage.png")}
         style={styles.background}
       >
+        {/* Allows users to input their name and select a backgroundColor */}
         <View style={styles.interactBox}>
           <View style={styles.textbox}>
             <TextInput
@@ -32,6 +34,7 @@ const Start = ({ navigation }) => {
             />
           </View>
           <View>
+            {/* maps all the colors to get individual buttons for each one */}
             <Text style={styles.colorText}>Choose background color</Text>
             <View style={styles.colorSelect}>
               {colors.map((color, index) => (
@@ -43,6 +46,7 @@ const Start = ({ navigation }) => {
               ))}
             </View>
           </View>
+          {/* button to navigate to the chat screen */}
           <TouchableOpacity
             style={styles.button}
             title="Go to Chat"
@@ -57,6 +61,7 @@ const Start = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ImageBackground>
+      {/* keyboard avoiding behavior */}
       {Platform.OS === "ios" ? (
         <KeyboardAvoidingView behavior="padding" />
       ) : null}
