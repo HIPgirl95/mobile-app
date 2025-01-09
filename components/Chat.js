@@ -6,7 +6,7 @@ import { Bubble, GiftedChat, SystemMessage } from "react-native-gifted-chat";
 const Chat = ({ db, route, navigation }) => {
   const [messages, setMessages] = useState([]);
   // extract route parameters for setting title and background color
-  const { name, backgroundColor } = route.params;
+  const { name, backgroundColor, userID } = route.params;
 
   useEffect(() => {
     //Set the title to the provided "name" parameter
@@ -72,7 +72,7 @@ const Chat = ({ db, route, navigation }) => {
         renderBubble={renderBubble}
         renderSystemMessage={renderSystemMessage}
         onSend={(messages) => onSend(messages)}
-        user={{ _id: 1 }}
+        user={{ _id: userID, name: name }}
       />
       {/* make sure the keyboard doesn't cover up the messages */}
       {/* {Platform.OS === "ios" ? (
