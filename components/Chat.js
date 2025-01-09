@@ -1,8 +1,9 @@
+import { addDoc, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { StyleSheet, View, Platform, KeyboardAvoidingView } from "react-native";
 import { Bubble, GiftedChat, SystemMessage } from "react-native-gifted-chat";
 
-const Chat = ({ route, navigation }) => {
+const Chat = ({ db, route, navigation }) => {
   const [messages, setMessages] = useState([]);
   // extract route parameters for setting title and background color
   const { name, backgroundColor } = route.params;
@@ -11,32 +12,27 @@ const Chat = ({ route, navigation }) => {
     //Set the title to the provided "name" parameter
     navigation.setOptions({ title: name });
 
-    //initialize chat messages with default messages
-    setMessages([
-      {
-        _id: 1,
-        text: `Hello ${name}!`,
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-      {
-        _id: 2,
-        text: "This is a system message", //system notification
-        createdAt: new Date(),
-        system: true,
-      },
-    ]);
+    const q = query(
+      collection(db, "messages"),
+      orderBy("createdAt", "desc"),
+      where("uid", "==", userID)
+    );
+    const unsubMessages = onSnapshot(q, (messagesSnapshot) => {
+      let newMessages = [];
+      messagesSnapshot.forEach((message) => {
+        newMessages.push({ id: message.id, ...message.data() });
+      });
+      setMessages(newMessages);
+    });
+
+    return () => {
+      if (unsubMessages) unsubMessages();
+    };
   }, []); //Empty dependency array ensures this only runs once
 
   //function to handle sending new messages
   const onSend = (newMessages) => {
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, newMessages)
-    );
+    addDoc(collection(db, "messages"), newMessages[0]);
   };
 
   //custom bubble styling
