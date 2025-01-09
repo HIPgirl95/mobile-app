@@ -12,15 +12,11 @@ const Chat = ({ db, route, navigation }) => {
     //Set the title to the provided "name" parameter
     navigation.setOptions({ title: name });
 
-    const q = query(
-      collection(db, "messages"),
-      orderBy("createdAt", "desc"),
-      where("uid", "==", userID)
-    );
-    const unsubMessages = onSnapshot(q, (messagesSnapshot) => {
+    const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
+    const unsubMessages = onSnapshot(q, (docs) => {
       let newMessages = [];
-      messagesSnapshot.forEach((message) => {
-        newMessages.push({ id: message.id, ...message.data() });
+      docs.forEach((doc) => {
+        newMessages.push({ id: doc.id, ...doc.data() });
       });
       setMessages(newMessages);
     });
