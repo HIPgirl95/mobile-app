@@ -69,7 +69,9 @@ const Start = ({ navigation }) => {
           <TouchableOpacity
             style={styles.button}
             title="Go to Chat"
-            onPress={signInUser}
+            onPress={() => {
+              signInUser();
+            }}
           >
             <Text style={styles.buttonText}>Go to chat!</Text>
           </TouchableOpacity>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View, Platform, KeyboardAvoidingView } from "react-native";
 import { Bubble, GiftedChat, SystemMessage } from "react-native-gifted-chat";
 
-const Chat = ({ db, route, navigation }) => {
+const Chat = ({ route, navigation, db }) => {
   const [messages, setMessages] = useState([]);
   // extract route parameters for setting title and background color
   const { name, backgroundColor, userID } = route.params;
