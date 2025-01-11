@@ -10,7 +10,6 @@ import {
   enableNetwork,
   getFirestore,
 } from "firebase/firestore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNetInfo } from "@react-native-community/netinfo";
 import { useEffect } from "react";
 
