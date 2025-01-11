@@ -1,4 +1,10 @@
-import { addDoc, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  onSnapshot,
+  orderBy,
+  query,
+  collection,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { StyleSheet, View, Platform, KeyboardAvoidingView } from "react-native";
 import { Bubble, GiftedChat, SystemMessage } from "react-native-gifted-chat";
@@ -16,7 +22,11 @@ const Chat = ({ route, navigation, db }) => {
     const unsubMessages = onSnapshot(q, (docs) => {
       let newMessages = [];
       docs.forEach((doc) => {
-        newMessages.push({ id: doc.id, ...doc.data() });
+        newMessages.push({
+          id: doc.id,
+          ...doc.data(),
+          createdAt: new Date(doc.data().createdAt.toMillis()),
+        });
       });
       setMessages(newMessages);
     });
