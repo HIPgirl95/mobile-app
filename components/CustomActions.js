@@ -2,6 +2,8 @@ import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 
 const CustomActions = ({ wrapperStyle, iconTextStyle }) => {
+  const actionSheet = useActionSheet();
+
   const onActionPress = () => {
     const options = [
       "Choose photo from Library",
@@ -10,6 +12,22 @@ const CustomActions = ({ wrapperStyle, iconTextStyle }) => {
       "Cancel",
     ];
     const cancelButtonIndex = options.length - 1;
+    actionSheet.showActionSheetWithOptions(
+      { options, cancelButtonIndex },
+      async (buttonIndex) => {
+        switch (buttonIndex) {
+          case 0:
+            console.log("user wants to pick an image");
+            return;
+          case 1:
+            console.log("user wants to take a photo");
+            return;
+          case 2:
+            console.log("user wants to get their location");
+          default:
+        }
+      }
+    );
   };
 
   return (
