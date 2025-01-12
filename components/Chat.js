@@ -14,6 +14,7 @@ import {
   SystemMessage,
 } from "react-native-gifted-chat";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomActions from "./CustomActions";
 
 const Chat = ({ route, navigation, db, isConnected }) => {
   const [messages, setMessages] = useState([]);
@@ -105,6 +106,10 @@ const Chat = ({ route, navigation, db, isConnected }) => {
     else return null;
   };
 
+  const renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
   return (
     //main containser with a changing background color
     <View style={[styles.container, { backgroundColor }]}>
@@ -115,6 +120,7 @@ const Chat = ({ route, navigation, db, isConnected }) => {
         renderSystemMessage={renderSystemMessage}
         onSend={(messages) => onSend(messages)}
         user={{ _id: userID, name: name }}
+        renderActions={renderCustomActions}
       />
       {/* make sure the keyboard doesn't cover up the messages */}
       {/* {Platform.OS === "ios" ? (
