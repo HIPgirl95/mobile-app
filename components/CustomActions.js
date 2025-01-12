@@ -11,6 +11,7 @@ const CustomActions = ({ wrapperStyle, iconTextStyle }) => {
       "Send Location",
       "Cancel",
     ];
+
     const cancelButtonIndex = options.length - 1;
     actionSheet.showActionSheetWithOptions(
       { options, cancelButtonIndex },
