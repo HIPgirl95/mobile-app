@@ -15,6 +15,8 @@ import {
 } from "react-native-gifted-chat";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomActions from "./CustomActions";
+import MapView from "react-native-maps";
+import * as Location from "expo-location";
 
 const Chat = ({ route, navigation, db, isConnected }) => {
   const [messages, setMessages] = useState([]);
@@ -110,6 +112,24 @@ const Chat = ({ route, navigation, db, isConnected }) => {
     return <CustomActions {...props} />;
   };
 
+  const renderCustomView = (props) => {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDela: 0.0421,
+          }}
+        />
+      );
+    }
+    return null;
+  };
+
   return (
     //main containser with a changing background color
     <View style={[styles.container, { backgroundColor }]}>
@@ -121,6 +141,7 @@ const Chat = ({ route, navigation, db, isConnected }) => {
         onSend={(messages) => onSend(messages)}
         user={{ _id: userID, name: name }}
         renderActions={renderCustomActions}
+        renderCustomView={renderCustomView}
       />
       {/* make sure the keyboard doesn't cover up the messages */}
       {/* {Platform.OS === "ios" ? (
