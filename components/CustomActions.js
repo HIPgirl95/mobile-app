@@ -14,21 +14,6 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend }) => {
       "Cancel",
     ];
 
-    const getLocation = async () => {
-      let permissions = await Location.requestForegroundPermissionsAsync();
-      if (permissions?.granted) {
-        const location = await Location.getCurrentPositionAsync({});
-        if (location) {
-          onSend({
-            location: {
-              longitude: location.coords.longitude,
-              latitude: location.coords.latitude,
-            },
-          });
-        } else Alert.alert("Error occurred while fetching location");
-      } else Alert.alert("Permissions haven't been granted.");
-    };
-
     const cancelButtonIndex = options.length - 1;
     actionSheet.showActionSheetWithOptions(
       { options, cancelButtonIndex },
@@ -46,6 +31,21 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend }) => {
         }
       }
     );
+  };
+
+  const getLocation = async () => {
+    let permissions = await Location.requestForegroundPermissionsAsync();
+    if (permissions?.granted) {
+      const location = await Location.getCurrentPositionAsync({});
+      if (location) {
+        onSend({
+          location: {
+            longitude: location.coords.longitude,
+            latitude: location.coords.latitude,
+          },
+        });
+      } else Alert.alert("Error occurred while fetching location");
+    } else Alert.alert("Permissions haven't been granted.");
   };
 
   return (
