@@ -109,7 +109,7 @@ const Chat = ({ route, navigation, db, isConnected }) => {
   };
 
   const renderCustomActions = (props) => {
-    return <CustomActions {...props} />;
+    return <CustomActions onSend={onSend} {...props} />;
   };
 
   const renderCustomView = (props) => {
