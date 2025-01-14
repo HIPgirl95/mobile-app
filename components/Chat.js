@@ -122,7 +122,7 @@ const Chat = ({ route, navigation, db, isConnected }) => {
             latitude: currentMessage.location.latitude,
             longitude: currentMessage.location.longitude,
             latitudeDelta: 0.0922,
-            longitudeDela: 0.0421,
+            longitudeDelta: 0.0421,
           }}
         />
       );
