@@ -67,7 +67,7 @@ const Chat = ({ route, navigation, db, isConnected }) => {
     return () => {
       if (unsubMessages) unsubMessages();
     };
-  }, []); //Empty dependency array ensures this only runs once
+  }, [isConnected]);
 
   //function to handle sending new messages
   const onSend = (newMessages) => {
