@@ -18,7 +18,7 @@ import CustomActions from "./CustomActions";
 import MapView from "react-native-maps";
 import * as Location from "expo-location";
 
-const Chat = ({ route, navigation, db, isConnected }) => {
+const Chat = ({ route, navigation, db, isConnected, storage }) => {
   const [messages, setMessages] = useState([]);
   // extract route parameters for setting title and background color
   const { name, backgroundColor, userID } = route.params;
@@ -109,7 +109,7 @@ const Chat = ({ route, navigation, db, isConnected }) => {
   };
 
   const renderCustomActions = (props) => {
-    return <CustomActions onSend={onSend} {...props} />;
+    return <CustomActions storage={storage} onSend={onSend} {...props} />;
   };
 
   const renderCustomView = (props) => {
