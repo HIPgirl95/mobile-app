@@ -8,15 +8,17 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend }) => {
 
   const onActionPress = () => {
     const options = [
-      "Choose photo from Library",
-      "Take a picture",
+      "Choose From Library",
+      "Take Picture",
       "Send Location",
       "Cancel",
     ];
-
     const cancelButtonIndex = options.length - 1;
     actionSheet.showActionSheetWithOptions(
-      { options, cancelButtonIndex },
+      {
+        options,
+        cancelButtonIndex,
+      },
       async (buttonIndex) => {
         switch (buttonIndex) {
           case 0:
