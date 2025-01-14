@@ -109,7 +109,14 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
   };
 
   const renderCustomActions = (props) => {
-    return <CustomActions storage={storage} onSend={onSend} {...props} />;
+    return (
+      <CustomActions
+        userID={userID}
+        storage={storage}
+        onSend={(message) => onsend([message])}
+        {...props}
+      />
+    );
   };
 
   const renderCustomView = (props) => {
