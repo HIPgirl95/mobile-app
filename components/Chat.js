@@ -20,9 +20,10 @@ import * as Location from "expo-location";
 
 const Chat = ({ route, navigation, db, isConnected, storage }) => {
   const [messages, setMessages] = useState([]);
-  // extract route parameters for setting title and background color
+  // extract route parameters for setting title, background color, and userID
   const { name, backgroundColor, userID } = route.params;
 
+  //cache messages locally using AsyncStorage
   const cacheMessages = async (messagesToCache) => {
     try {
       await AsyncStorage.setItem(
@@ -45,10 +46,12 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
     //Set the title to the provided "name" parameter
     navigation.setOptions({ title: name });
 
+    //clean up any previous snapshot listener
     if (isConnected === true) {
       if (unsubMessages) unsubMessages();
       unsubMessages = null;
 
+      //query firestore messages collection and listen for updates
       const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
       unsubMessages = onSnapshot(q, (docs) => {
         let newMessages = [];
@@ -62,12 +65,12 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
         cacheMessages(newMessages);
         setMessages(newMessages);
       });
-    } else loadCachedMessages();
+    } else loadCachedMessages(); //load messages from cache if offline
 
     return () => {
       if (unsubMessages) unsubMessages();
     };
-  }, [isConnected]);
+  }, [isConnected]); //re-run effect when connection state changes
 
   //function to handle sending new messages
   const onSend = (newMessages) => {
@@ -103,15 +106,18 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
     );
   };
 
+  //hide input toolbar when offline
   const renderInputToolbar = (props) => {
     if (isConnected) return <InputToolbar {...props} />;
     else return null;
   };
 
+  //renders custom action component
   const renderCustomActions = (props) => {
     return <CustomActions userID={userID} storage={storage} {...props} />;
   };
 
+  //render custom view for map sharing
   const renderCustomView = (props) => {
     const { currentMessage } = props;
     if (currentMessage.location) {

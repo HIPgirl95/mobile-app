@@ -11,8 +11,9 @@ const CustomActions = ({
   storage,
   userID,
 }) => {
-  const actionSheet = useActionSheet();
+  const actionSheet = useActionSheet(); //use ActionSheet
 
+  //function to handle the action sheet button press
   const onActionPress = () => {
     const options = [
       "Choose From Library",
@@ -42,6 +43,7 @@ const CustomActions = ({
     );
   };
 
+  //function to get and send user's location
   const getLocation = async () => {
     let permissions = await Location.requestForegroundPermissionsAsync();
     if (permissions?.granted) {
@@ -57,12 +59,14 @@ const CustomActions = ({
     } else Alert.alert("Permissions haven't been granted.");
   };
 
+  //function to generate a unique reference for each image
   const generateReference = (uri) => {
     const timeStamp = new Date().getTime();
     const imageName = uri.split("/")[uri.split("/").length - 1];
     return `${userID}-${timeStamp}-${imageName}`;
   };
 
+  //function to upload images to firebase
   const uploadAndSendImage = async (imageURI) => {
     const uniqueRefString = generateReference(imageURI);
     const newUploadRef = ref(storage, uniqueRefString);
@@ -74,6 +78,7 @@ const CustomActions = ({
     });
   };
 
+  //function to allow user to pick a photo from their library
   const pickImage = async () => {
     let permissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissions?.granted) {
@@ -83,6 +88,7 @@ const CustomActions = ({
     }
   };
 
+  //function to allow user to take and send a picture with their camera
   const takePhoto = async () => {
     let permissions = await ImagePicker.requestCameraPermissionsAsync();
     if (permissions?.granted) {
@@ -91,6 +97,8 @@ const CustomActions = ({
       else Alert.alert("Permissions haven't been granted.");
     }
   };
+
+  //open actionsheet
   return (
     <TouchableOpacity
       accessible={true}

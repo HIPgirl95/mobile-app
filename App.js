@@ -17,7 +17,8 @@ import { getStorage } from "firebase/storage";
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const connectionStatus = useNetInfo();
+  const connectionStatus = useNetInfo(); //monitor network connection status
+
   const firebaseConfig = {
     apiKey: "AIzaSyCgXr0moXGJ25N4elQNZ9U0rgN098fWNyk",
     authDomain: "chat-app-6d139.firebaseapp.com",
@@ -33,8 +34,10 @@ const App = () => {
   //initialize Cloud Firestore and get a reference to the service
   const db = getFirestore(app);
 
+  //initialize firebase storage
   const storage = getStorage(app);
 
+  //effect to monitor network changes and enable/disable Firestore network
   useEffect(() => {
     if (connectionStatus.isConnected === false) {
       Alert.alert("Connection lost!");
@@ -45,6 +48,7 @@ const App = () => {
   }, [connectionStatus.isConnected]);
 
   return (
+    //screen navigation
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Start">
         <Stack.Screen name="Start" component={Start} />
