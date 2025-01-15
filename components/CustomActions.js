@@ -108,11 +108,14 @@ const styles = StyleSheet.create({
     height: 26,
     marginLeft: 10,
     marginRight: 10,
+    marginBottom: 10,
   },
   wrapper: {
+    alignContent: "center",
+    justifyContent: "center",
     borderRadius: 13,
     borderColor: "#b2b2b2",
-    bordeWidth: 2,
+    borderWidth: 2,
     flex: 1,
   },
   iconText: {
