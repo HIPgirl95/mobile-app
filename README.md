@@ -10,6 +10,10 @@ A real-time chat application built with React Native and Firebase. Users can ano
 - Customizable chat interface with different background colors.
 - Offline message caching.
 
+## Screenshots
+![1](https://github.com/user-attachments/assets/72503bcf-dd00-43bb-b30f-ec3b27fd6ca0)
+![1](https://github.com/user-attachments/assets/ac547348-d384-4504-b57f-771306dd6cac)
+
 ---
 
 ## Setting Up the Project
