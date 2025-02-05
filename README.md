@@ -12,7 +12,7 @@ A real-time chat application built with React Native and Firebase. Users can ano
 
 ## Screenshots
 ![1](https://github.com/user-attachments/assets/72503bcf-dd00-43bb-b30f-ec3b27fd6ca0)
-![image0](https://github.com/user-attachments/assets/ef640a15-545c-4edb-ae8d-4ebdff4c9e1c)
+![image0](https://github.com/user-attachments/assets/c0b6d42e-b0ab-44fa-848a-6bb1b12d394e)
 
 ---
 
